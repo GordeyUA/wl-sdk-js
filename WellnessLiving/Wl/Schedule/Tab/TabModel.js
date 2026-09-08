@@ -1,5 +1,5 @@
 /**
- * An endpoint that retrieves a list of tabs for bookable services specific to the user and the location.
+ * Retrieves a list of tabs for bookable services specific to the user and the location.
  *
  * The names and contents of these tabs can be customized by the business. For example, a business may have tabs named
  * ‘Appointments’, ‘Group Appointments’, and ‘Room Rentals’.
@@ -23,7 +23,7 @@ function Wl_Schedule_Tab_TabModel()
    * @property {number} id_class_tab_object The tab type ID which is one of the {@link Wl_Classes_Tab_TabSid} constants.
    * @property {?number} id_class_tab_system If this tab has redefined a default system Class Tab then it references a constant defined in
    * {@link Wl_Classes_Tab_TabSid}.
-   * 
+   *
    * Otherwise, this will be `null`.
    * @property {?string} k_class_tab The class tab key. This will be `null` if it's a system tab.
    * @property {string} k_id A unique identifier in the list.
@@ -34,46 +34,19 @@ function Wl_Schedule_Tab_TabModel()
    * An array containing information about tabs to present to the user.
    * Each array index corresponds to a tab.
    * Each array element is an array that contains the following fields:
-   * <dl>
-   *   <dt>
-   *     int <var>id_class_tab_object</var>
-   *   </dt>
-   *   <dd>
-   *     The tab type ID which is one of the {@link Wl_Classes_Tab_TabSid} constants.
-   *   </dd>
-   *   <dt>
-   *     int|null <var>id_class_tab_system</var>
-   *   </dt>
-   *   <dd>
-   *     If this tab has redefined a default system Class Tab then it references a constant defined in
-   *     {@link Wl_Classes_Tab_TabSid}.
-   *
-   *     Otherwise, this will be `null`.
-   *   </dd>
-   *   <dt>
-   *     string|null <var>k_class_tab</var>
-   *   </dt>
-   *   <dd>
-   *     The class tab key. This will be `null` if it's a system tab.
-   *   </dd>
-   *   <dt>
-   *     string <var>k_id</var>
-   *   </dt>
-   *   <dd>
-   *     A unique identifier in the list.
-   *   </dd>
-   *   <dt>
-   *     string <var>s_title</var>
-   *   </dt>
-   *   <dd>
-   *     The tab title.
-   *   </dd>
-   * </dl>
    *
    * @get result
    * @type {Wl_Schedule_Tab_TabModel_a_tab[]}
    */
   this.a_tab = undefined;
+
+  /**
+   * Whether to return all tabs or only the tabs for which sessions are available.
+   *
+   * @get get
+   * @type {boolean}
+   */
+  this.is_full_list = false;
 
   /**
    * Whether we are inside the widget or not.
@@ -123,7 +96,7 @@ WlSdk_ModelAbstract.extend(Wl_Schedule_Tab_TabModel);
  */
 Wl_Schedule_Tab_TabModel.prototype.config=function()
 {
-  return {"a_field": {"a_tab": {"get": {"result": true}},"is_widget": {"get": {"get": true}},"k_business": {"get": {"get": true}},"k_location": {"get": {"get": true}},"uid": {"get": {"get": true}}}};
+  return {"a_field": {"a_tab": {"get": {"result": true}},"is_full_list": {"get": {"get": true}},"is_widget": {"get": {"get": true}},"k_business": {"get": {"get": true}},"k_location": {"get": {"get": true}},"uid": {"get": {"get": true}}}};
 };
 
 /**
